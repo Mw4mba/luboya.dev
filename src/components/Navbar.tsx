@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
+import { Home, Briefcase, Sparkles, MessageCircle, Mail } from 'lucide-react';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -34,11 +35,11 @@ export default function Navbar() {
   }, [isOpen]);
 
   const navLinks = [
-    { href: '/', label: 'Home', icon: '🏠' },
-    { href: '/offering', label: 'Offering', icon: '💼' },
-    { href: '/showcase', label: 'Showcase', icon: '✨' },
-    { href: '/testimonials', label: 'Testimonials', icon: '💬' },
-    { href: '/contact', label: 'Contact', icon: '📧' },
+    { href: '/', label: 'Home', Icon: Home },
+    { href: '/offering', label: 'Offering', Icon: Briefcase },
+    { href: '/showcase', label: 'Showcase', Icon: Sparkles },
+    { href: '/testimonials', label: 'Testimonials', Icon: MessageCircle },
+    { href: '/contact', label: 'Contact', Icon: Mail },
   ];
 
   const isActive = (path: string) => pathname === path;
@@ -145,33 +146,32 @@ export default function Navbar() {
 
           {/* Menu Items */}
           <div className="p-3">
-            {navLinks.map((link, index) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setIsOpen(false)}
-                className={`flex items-center gap-4 px-4 py-3.5 rounded-2xl text-base font-medium transition-all duration-200 mb-1 last:mb-0 ${
-                  isActive(link.href)
-                    ? 'bg-black dark:bg-white text-white dark:text-black shadow-md scale-[1.02]'
-                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-900 active:scale-[0.98]'
-                }`}
-                style={{
-                  animation: isOpen ? `slideInFromRight 0.4s ease-out ${index * 0.08}s both` : 'none',
-                }}
-              >
-                <span className="text-2xl" role="img" aria-label={link.label}>
-                  {link.icon}
-                </span>
-                <span>{link.label}</span>
-                {isActive(link.href) && (
-                  <span className="ml-auto">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            {navLinks.map((link, index) => {
+              const IconComponent = link.Icon;
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setIsOpen(false)}
+                  className={`flex items-center gap-4 px-4 py-3.5 rounded-2xl text-base font-medium transition-all duration-200 mb-1 last:mb-0 ${
+                    isActive(link.href)
+                      ? 'bg-black dark:bg-white text-white dark:text-black shadow-md scale-[1.02]'
+                      : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-900 active:scale-[0.98]'
+                  }`}
+                  style={{
+                    animation: isOpen ? `slideInFromRight 0.4s ease-out ${index * 0.08}s both` : 'none',
+                  }}
+                >
+                  <IconComponent className="w-5 h-5" />
+                  <span>{link.label}</span>
+                  {isActive(link.href) && (
+                    <svg className="ml-auto w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
-                  </span>
-                )}
-              </Link>
-            ))}
+                  )}
+                </Link>
+              );
+            })}
           </div>
 
           {/* Menu Footer - Optional branding */}

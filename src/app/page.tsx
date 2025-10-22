@@ -27,12 +27,12 @@ export default function Home() {
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-semibold tracking-tight text-gray-900 dark:text-gray-50 mb-6 animate-fade-in leading-tight">
             Welcome to{' '}
             <span className="inline-block bg-gradient-to-r from-gray-900 to-gray-600 dark:from-gray-100 dark:to-gray-400 text-transparent bg-clip-text">
-              Luboya
+              Your DEV solution
             </span>
           </h1>
           
           <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mb-12 animate-fade-in-delay leading-relaxed">
-            Building the future, one line of code at a time. We create exceptional digital experiences with precision and purpose.
+            Building the future, one line of code at a time. Creating exceptional digital experiences with precision and purpose.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-delay-2">

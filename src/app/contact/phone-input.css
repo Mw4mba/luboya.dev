@@ -1,0 +1,154 @@
+/* Custom Phone Input Styles for Geist Design System */
+
+.PhoneInput {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.PhoneInputInput {
+  flex: 1;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  outline: none;
+  transition: all 0.2s ease;
+  color: #111827;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.PhoneInputInput:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.PhoneInputInput::placeholder {
+  color: #9ca3af;
+}
+
+.PhoneInputCountry {
+  position: relative;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  margin-right: 0.5rem;
+}
+
+.PhoneInputCountryIcon {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 0.25rem;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+.PhoneInputCountryIcon img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.PhoneInputCountrySelect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  border: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Country selector dropdown menu */
+.PhoneInputCountrySelect option {
+  background-color: white;
+  color: #111827;
+  padding: 0.5rem;
+}
+
+.PhoneInputCountrySelectArrow {
+  display: block;
+  content: '';
+  width: 0.3rem;
+  height: 0.3rem;
+  margin-left: 0.35rem;
+  border-style: solid;
+  border-color: #6b7280;
+  border-top-width: 0;
+  border-bottom-width: 1.5px;
+  border-left-width: 0;
+  border-right-width: 1.5px;
+  transform: rotate(45deg);
+  opacity: 0.7;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .PhoneInputInput {
+    background-color: black;
+    border-color: #262626;
+    color: #f3f4f6;
+  }
+  
+  .PhoneInputInput:focus {
+    border-color: #60a5fa;
+    box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1);
+  }
+  
+  .PhoneInputInput::placeholder {
+    color: #6b7280;
+  }
+  
+  .PhoneInputCountryIcon {
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+  }
+  
+  .PhoneInputCountrySelectArrow {
+    border-color: #9ca3af;
+  }
+  
+  /* Country selector dropdown in dark mode */
+  .PhoneInputCountrySelect option {
+    background-color: #1a1a1a;
+    color: #f3f4f6;
+  }
+}
+
+/* Disabled state */
+.PhoneInputInput:disabled {
+  background-color: #f9fafb;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+@media (prefers-color-scheme: dark) {
+  .PhoneInputInput:disabled {
+    background-color: #0a0a0a;
+    color: #6b7280;
+  }
+}
+
+/* Error state */
+.PhoneInputInput.error {
+  border-color: #ef4444;
+}
+
+.PhoneInputInput.error:focus {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+/* Success state */
+.PhoneInputInput.success {
+  border-color: #10b981;
+}
+
+.PhoneInputInput.success:focus {
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}

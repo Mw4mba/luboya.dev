@@ -1,6 +1,16 @@
 import Navbar from '@/components/Navbar';
+import { Rocket, Smartphone, Palette, Cloud, Lightbulb, Settings } from 'lucide-react';
 
 export default function Offering() {
+  const services = [
+    { title: 'Web Development', description: 'Custom web applications built with modern technologies', Icon: Rocket },
+    { title: 'Mobile Apps', description: 'Native and cross-platform mobile solutions', Icon: Smartphone },
+    { title: 'UI/UX Design', description: 'Beautiful, intuitive interfaces that users love', Icon: Palette },
+    { title: 'Cloud Solutions', description: 'Scalable infrastructure and deployment strategies', Icon: Cloud },
+    { title: 'Consulting', description: 'Expert guidance for your technical challenges', Icon: Lightbulb },
+    { title: 'Maintenance', description: 'Ongoing support and continuous improvement', Icon: Settings },
+  ];
+
   return (
     <main className="min-h-screen relative overflow-hidden bg-white dark:bg-black transition-colors duration-300">
       {/* Geist-style background */}
@@ -26,23 +36,21 @@ export default function Offering() {
 
           {/* Services Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-5xl animate-fade-in-delay">
-            {[
-              { title: 'Web Development', description: 'Custom web applications built with modern technologies', icon: '🚀' },
-              { title: 'Mobile Apps', description: 'Native and cross-platform mobile solutions', icon: '📱' },
-              { title: 'UI/UX Design', description: 'Beautiful, intuitive interfaces that users love', icon: '🎨' },
-              { title: 'Cloud Solutions', description: 'Scalable infrastructure and deployment strategies', icon: '☁️' },
-              { title: 'Consulting', description: 'Expert guidance for your technical challenges', icon: '💡' },
-              { title: 'Maintenance', description: 'Ongoing support and continuous improvement', icon: '⚙️' },
-            ].map((service, index) => (
-              <div 
-                key={index}
-                className="group p-8 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-black hover:border-gray-300 dark:hover:border-gray-700 transition-all duration-300 hover:shadow-lg"
-              >
-                <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">{service.icon}</div>
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">{service.title}</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{service.description}</p>
-              </div>
-            ))}
+            {services.map((service, index) => {
+              const IconComponent = service.Icon;
+              return (
+                <div 
+                  key={index}
+                  className="group p-8 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-black hover:border-gray-300 dark:hover:border-gray-700 transition-all duration-300 hover:shadow-lg"
+                >
+                  <div className="mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <IconComponent className="w-10 h-10 text-gray-900 dark:text-gray-100" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">{service.title}</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{service.description}</p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

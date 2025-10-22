@@ -2,6 +2,16 @@
 
 import { useState } from 'react';
 import Navbar from '@/components/Navbar';
+import PhoneInput from 'react-phone-number-input';
+import './phone-input.css';
+import { 
+  User, Mail, Phone, Building2, Briefcase, 
+  DollarSign, Clock, AlertCircle, Target,
+  MessageSquare, Users, TrendingUp, Zap,
+  CheckCircle2, ArrowRight, ArrowLeft, Loader2,
+  Globe, Smartphone, ShoppingBag, Palette, Lightbulb,
+  Radio, Cpu, Rocket
+} from 'lucide-react';
 
 type FormStep = 1 | 2 | 3 | 4;
 
@@ -87,30 +97,47 @@ export default function Contact() {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    console.log('Form submitted:', formData);
-    setIsSubmitting(false);
-    setIsSubmitted(true);
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message || 'Failed to send email');
+      }
+
+      console.log('Form submitted successfully:', result);
+      setIsSubmitted(true);
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      alert('Failed to submit form. Please try again or contact us directly.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const projectTypes = [
-    { value: 'website', label: 'Website Development', icon: '🌐' },
-    { value: 'webapp', label: 'Web Application', icon: '⚡' },
-    { value: 'mobile', label: 'Mobile App', icon: '📱' },
-    { value: 'ecommerce', label: 'E-commerce', icon: '🛍️' },
-    { value: 'branding', label: 'Branding & Design', icon: '🎨' },
-    { value: 'consulting', label: 'Consulting', icon: '💡' },
+    { value: 'website', label: 'Website Development', Icon: Globe },
+    { value: 'webapp', label: 'Web Application', Icon: Zap },
+    { value: 'mobile', label: 'Mobile App', Icon: Smartphone },
+    { value: 'ecommerce', label: 'E-commerce', Icon: ShoppingBag },
+    { value: 'branding', label: 'Branding & Design', Icon: Palette },
+    { value: 'consulting', label: 'Consulting', Icon: Lightbulb },
   ];
 
   const goalOptions = [
-    { value: 'increase-sales', label: 'Increase Sales', icon: '💰' },
-    { value: 'brand-awareness', label: 'Brand Awareness', icon: '📢' },
-    { value: 'user-engagement', label: 'User Engagement', icon: '👥' },
-    { value: 'automation', label: 'Process Automation', icon: '🤖' },
-    { value: 'modernization', label: 'Modernization', icon: '🚀' },
-    { value: 'market-expansion', label: 'Market Expansion', icon: '🌍' },
+    { value: 'increase-sales', label: 'Increase Sales', Icon: TrendingUp },
+    { value: 'brand-awareness', label: 'Brand Awareness', Icon: Radio },
+    { value: 'user-engagement', label: 'User Engagement', Icon: Users },
+    { value: 'automation', label: 'Process Automation', Icon: Cpu },
+    { value: 'modernization', label: 'Modernization', Icon: Rocket },
+    { value: 'market-expansion', label: 'Market Expansion', Icon: Globe },
   ];
 
   const progressPercentage = (currentStep / 4) * 100;
@@ -125,9 +152,7 @@ export default function Contact() {
         <div className="relative z-10 container mx-auto px-6 py-20">
           <div className="flex flex-col items-center justify-center min-h-screen text-center">
             <div className="w-20 h-20 rounded-full bg-green-500/10 dark:bg-green-500/20 flex items-center justify-center mb-6 animate-fade-in">
-              <svg className="w-10 h-10 text-green-600 dark:text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
+              <CheckCircle2 className="w-10 h-10 text-green-600 dark:text-green-500" />
             </div>
             
             <h1 className="text-4xl md:text-5xl font-semibold tracking-tight text-gray-900 dark:text-gray-50 mb-4">
@@ -208,9 +233,12 @@ export default function Contact() {
               {/* Step 1: Contact Information */}
               {currentStep === 1 && (
                 <div className="space-y-6 animate-fade-in">
-                  <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-50 mb-6">
-                    👋 Contact Information
-                  </h2>
+                  <div className="flex items-center gap-3 mb-6">
+                    <User className="w-6 h-6 text-blue-600 dark:text-blue-500" />
+                    <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
+                      Contact Information
+                    </h2>
+                  </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
@@ -260,12 +288,15 @@ export default function Contact() {
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                       Phone Number
                     </label>
-                    <input
-                      type="tel"
+                    <PhoneInput
+                      international
+                      defaultCountry="US"
                       value={formData.phone}
-                      onChange={(e) => updateFormData('phone', e.target.value)}
-                      className="w-full px-4 py-3 bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 text-gray-900 dark:text-gray-100 transition-all"
-                      placeholder="+1 (555) 000-0000"
+                      onChange={(value) => updateFormData('phone', value || '')}
+                      className="phone-input"
+                      numberInputProps={{
+                        className: "w-full px-4 py-3 bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 text-gray-900 dark:text-gray-100 transition-all"
+                      }}
                     />
                   </div>
 
@@ -302,37 +333,41 @@ export default function Contact() {
               {/* Step 2: Project Details */}
               {currentStep === 2 && (
                 <div className="space-y-6 animate-fade-in">
-                  <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-50 mb-6">
-                    💼 Project Details
-                  </h2>
+                  <div className="flex items-center gap-3 mb-6">
+                    <Briefcase className="w-6 h-6 text-blue-600 dark:text-blue-500" />
+                    <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
+                      Project Details
+                    </h2>
+                  </div>
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
                       What type of project are you interested in? *
                     </label>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                      {projectTypes.map((type) => (
-                        <button
-                          key={type.value}
-                          type="button"
-                          onClick={() => toggleArrayValue('projectType', type.value)}
-                          className={`flex items-center gap-3 px-4 py-3 rounded-xl border-2 transition-all duration-200 text-left ${
-                            formData.projectType.includes(type.value)
-                              ? 'border-blue-500 dark:border-blue-400 bg-blue-50 dark:bg-blue-950/20'
-                              : 'border-gray-200 dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-700'
-                          }`}
-                        >
-                          <span className="text-2xl">{type.icon}</span>
-                          <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
-                            {type.label}
-                          </span>
-                          {formData.projectType.includes(type.value) && (
-                            <svg className="ml-auto w-5 h-5 text-blue-600 dark:text-blue-500" fill="currentColor" viewBox="0 0 20 20">
-                              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                            </svg>
-                          )}
-                        </button>
-                      ))}
+                      {projectTypes.map((type) => {
+                        const IconComponent = type.Icon;
+                        return (
+                          <button
+                            key={type.value}
+                            type="button"
+                            onClick={() => toggleArrayValue('projectType', type.value)}
+                            className={`flex items-center gap-3 px-4 py-3 rounded-xl border-2 transition-all duration-200 text-left ${
+                              formData.projectType.includes(type.value)
+                                ? 'border-blue-500 dark:border-blue-400 bg-blue-50 dark:bg-blue-950/20'
+                                : 'border-gray-200 dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-700'
+                            }`}
+                          >
+                            <IconComponent className="w-5 h-5 text-gray-700 dark:text-gray-300" />
+                            <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                              {type.label}
+                            </span>
+                            {formData.projectType.includes(type.value) && (
+                              <CheckCircle2 className="ml-auto w-5 h-5 text-blue-600 dark:text-blue-500" />
+                            )}
+                          </button>
+                        );
+                      })}
                     </div>
                   </div>
 
@@ -347,12 +382,12 @@ export default function Contact() {
                       className="w-full px-4 py-3 bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 text-gray-900 dark:text-gray-100 transition-all"
                     >
                       <option value="">Select budget range</option>
-                      <option value="<5k">Less than $5,000</option>
-                      <option value="5k-10k">$5,000 - $10,000</option>
-                      <option value="10k-25k">$10,000 - $25,000</option>
-                      <option value="25k-50k">$25,000 - $50,000</option>
-                      <option value="50k-100k">$50,000 - $100,000</option>
-                      <option value="100k+">$100,000+</option>
+                      <option value="<10k">Less than R10,000</option>
+                      <option value="10k-20k">R10,000 - R20,000</option>
+                      <option value="20k-50k">R20,000 - R50,000</option>
+                      <option value="50k-100k">R50,000 - R100,000</option>
+                      <option value="100k-200k">R100,000 - R200,000</option>
+                      <option value="200k+">R200,000+</option>
                     </select>
                   </div>
 
@@ -402,9 +437,12 @@ export default function Contact() {
               {/* Step 3: Requirements */}
               {currentStep === 3 && (
                 <div className="space-y-6 animate-fade-in">
-                  <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-50 mb-6">
-                    📝 Project Requirements
-                  </h2>
+                  <div className="flex items-center gap-3 mb-6">
+                    <Target className="w-6 h-6 text-blue-600 dark:text-blue-500" />
+                    <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
+                      Project Requirements
+                    </h2>
+                  </div>
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -425,28 +463,29 @@ export default function Contact() {
                       What are your main goals? *
                     </label>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                      {goalOptions.map((goal) => (
-                        <button
-                          key={goal.value}
-                          type="button"
-                          onClick={() => toggleArrayValue('goals', goal.value)}
-                          className={`flex items-center gap-3 px-4 py-3 rounded-xl border-2 transition-all duration-200 text-left ${
-                            formData.goals.includes(goal.value)
-                              ? 'border-blue-500 dark:border-blue-400 bg-blue-50 dark:bg-blue-950/20'
-                              : 'border-gray-200 dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-700'
-                          }`}
-                        >
-                          <span className="text-2xl">{goal.icon}</span>
-                          <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
-                            {goal.label}
-                          </span>
-                          {formData.goals.includes(goal.value) && (
-                            <svg className="ml-auto w-5 h-5 text-blue-600 dark:text-blue-500" fill="currentColor" viewBox="0 0 20 20">
-                              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                            </svg>
-                          )}
-                        </button>
-                      ))}
+                      {goalOptions.map((goal) => {
+                        const IconComponent = goal.Icon;
+                        return (
+                          <button
+                            key={goal.value}
+                            type="button"
+                            onClick={() => toggleArrayValue('goals', goal.value)}
+                            className={`flex items-center gap-3 px-4 py-3 rounded-xl border-2 transition-all duration-200 text-left ${
+                              formData.goals.includes(goal.value)
+                                ? 'border-blue-500 dark:border-blue-400 bg-blue-50 dark:bg-blue-950/20'
+                                : 'border-gray-200 dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-700'
+                            }`}
+                          >
+                            <IconComponent className="w-5 h-5 text-gray-700 dark:text-gray-300" />
+                            <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                              {goal.label}
+                            </span>
+                            {formData.goals.includes(goal.value) && (
+                              <CheckCircle2 className="ml-auto w-5 h-5 text-blue-600 dark:text-blue-500" />
+                            )}
+                          </button>
+                        );
+                      })}
                     </div>
                   </div>
 
@@ -481,9 +520,12 @@ export default function Contact() {
               {/* Step 4: Additional Information */}
               {currentStep === 4 && (
                 <div className="space-y-6 animate-fade-in">
-                  <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-50 mb-6">
-                    ✨ Final Details
-                  </h2>
+                  <div className="flex items-center gap-3 mb-6">
+                    <MessageSquare className="w-6 h-6 text-blue-600 dark:text-blue-500" />
+                    <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
+                      Final Details
+                    </h2>
+                  </div>
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -551,9 +593,7 @@ export default function Contact() {
                     : 'text-gray-700 dark:text-gray-300 bg-white dark:bg-black border border-gray-200 dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-700'
                 }`}
               >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                </svg>
+                <ArrowLeft className="w-4 h-4" />
                 Back
               </button>
 
@@ -564,9 +604,7 @@ export default function Contact() {
                   className="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium text-white dark:text-black bg-black dark:bg-white rounded-full hover:bg-gray-800 dark:hover:bg-gray-200 transition-all duration-200"
                 >
                   Next Step
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
+                  <ArrowRight className="w-4 h-4" />
                 </button>
               ) : (
                 <button
@@ -576,18 +614,13 @@ export default function Contact() {
                 >
                   {isSubmitting ? (
                     <>
-                      <svg className="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                      </svg>
+                      <Loader2 className="animate-spin w-4 h-4" />
                       Submitting...
                     </>
                   ) : (
                     <>
                       Submit Application
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
+                      <CheckCircle2 className="w-4 h-4" />
                     </>
                   )}
                 </button>
