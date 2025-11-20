@@ -58,7 +58,7 @@ export default function Navbar() {
               aria-label="Luboya Home"
             >
               <Image
-                src={isDarkMode ? '/allogow.png' : '/allogob.png'}
+                src={isDarkMode ? '/luboyalogow.svg' : '/luboyalogo.svg'}
                 alt="Luboya Logo"
                 fill
                 className="object-contain"
