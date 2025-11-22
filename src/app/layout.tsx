@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import SplashScreen from "@/components/SplashScreen";
+import { ThemeProvider } from "@/components/ThemeProvider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -18,8 +19,8 @@ export const metadata: Metadata = {
   description: "Building the future, one line of code at a time",
   icons: {
     icon: [
-      { url: '/luboyalogo.svg', media: '(prefers-color-scheme: light)' },
-      { url: '/luboyalogow.svg', media: '(prefers-color-scheme: dark)' },
+      { url: '/lblg.svg', media: '(prefers-color-scheme: light)' },
+      { url: '/lblgw.svg', media: '(prefers-color-scheme: dark)' },
     ],
   },
 };
@@ -34,8 +35,15 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <SplashScreen />
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <SplashScreen />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

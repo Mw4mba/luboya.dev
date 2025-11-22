@@ -9,7 +9,7 @@ export default function SplashScreen() {
   useEffect(() => {
     // Check session storage
     const hasSeen = typeof window !== 'undefined' ? sessionStorage.getItem('hasSeenSplash') : null;
-    
+
     if (hasSeen) {
       setStage('hidden');
       return;
@@ -40,32 +40,30 @@ export default function SplashScreen() {
 
   return (
     <div
-      className={`fixed inset-0 z-[100] flex items-center justify-center bg-white dark:bg-black transition-transform duration-700 ease-in-out ${
-        stage === 'slide' ? '-translate-y-full' : 'translate-y-0'
-      }`}
+      className={`fixed inset-0 z-[100] flex items-center justify-center bg-white dark:bg-black transition-transform duration-700 ease-in-out ${stage === 'slide' ? '-translate-y-full' : 'translate-y-0'
+        }`}
     >
       <div
-        className={`relative w-48 h-48 transition-transform duration-1000 ease-in-out ${
-          stage === 'initial' ? '-rotate-45 scale-90' : 'rotate-0 scale-100'
-        }`}
+        className={`relative w-48 h-48 transition-transform duration-1000 ease-in-out ${stage === 'initial' ? '-rotate-45 scale-90' : 'rotate-0 scale-100'
+          }`}
       >
         <div className="dark:hidden w-full h-full relative">
-            <Image
-                src="/luboyalogo.svg"
-                alt="Luboya Logo"
-                fill
-                className="object-contain"
-                priority
-            />
+          <Image
+            src="/lblg.svg"
+            alt="Luboya Logo"
+            fill
+            className="object-contain"
+            priority
+          />
         </div>
         <div className="hidden dark:block w-full h-full relative">
-            <Image
-                src="/luboyalogow.svg"
-                alt="Luboya Logo"
-                fill
-                className="object-contain"
-                priority
-            />
+          <Image
+            src="/lblgw.svg"
+            alt="Luboya Logo"
+            fill
+            className="object-contain"
+            priority
+          />
         </div>
       </div>
     </div>
