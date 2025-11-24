@@ -1,6 +1,8 @@
 import Navbar from '@/components/Navbar';
 import Image from 'next/image';
 import Link from 'next/link';
+import ApplicationDevelopment from '@/components/ApplicationDevelopment';
+import WebDevelopment from '@/components/WebDevelopment';
 
 export default function Home() {
     return (
@@ -67,6 +69,9 @@ export default function Home() {
                     </Link>
                 </div>
             </div>
+
+            <ApplicationDevelopment />
+            <WebDevelopment />
 
             <Navbar />
         </main>
