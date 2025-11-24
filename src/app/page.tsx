@@ -4,6 +4,7 @@ import Link from 'next/link';
 import ApplicationDevelopment from '@/components/ApplicationDevelopment';
 import WebDevelopment from '@/components/WebDevelopment';
 import BrandMarketing from '@/components/BrandMarketing';
+import GridBackground from '@/components/ui/GridBackground';
 
 export default function Home() {
     return (
@@ -11,7 +12,7 @@ export default function Home() {
             {/* Geist-style subtle gradient background - Fixed to cover whole page */}
             <div className="fixed inset-0 bg-gradient-to-b from-gray-50 via-white to-gray-50 dark:from-gray-950 dark:via-black dark:to-gray-950 opacity-50 pointer-events-none">
                 {/* Subtle grid pattern - Increased opacity significantly */}
-                <div className="absolute inset-0 bg-[linear-gradient(to_right,#e5e5e5_1px,transparent_1px),linear-gradient(to_bottom,#e5e5e5_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#262626_1px,transparent_1px),linear-gradient(to_bottom,#262626_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)] opacity-70"></div>
+                <GridBackground />
 
                 {/* Subtle accent glow - Decreased opacity */}
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-blue-500/2 dark:bg-blue-500/5 rounded-full blur-3xl"></div>

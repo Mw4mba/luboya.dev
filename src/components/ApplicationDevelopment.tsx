@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import GridBackground from './ui/GridBackground';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -131,6 +132,7 @@ const ApplicationDevelopment = () => {
 
                 {/* Background Elements */}
                 <div className="absolute inset-0 pointer-events-none">
+                    <GridBackground />
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-500/10 rounded-full blur-3xl"></div>
                 </div>
 
