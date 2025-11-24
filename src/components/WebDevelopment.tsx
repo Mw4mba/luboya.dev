@@ -153,6 +153,7 @@ const WebDevelopment = () => {
                             fill
                             className="object-contain drop-shadow-2xl"
                             priority
+                            sizes="(max-width: 768px) 90vw, 800px"
                         />
 
                         {/* Screen Content Overlay */}
@@ -160,21 +161,23 @@ const WebDevelopment = () => {
                             Laptop screen is roughly centered. 
                             Adjusting top/left/width/height based on typical laptop asset aspect ratio. */}
                         <div ref={screenContentRef} className="absolute top-[11%] left-[13%] w-[74%] h-[78%] flex flex-col items-center justify-center z-30 overflow-hidden">
-                            <div ref={screenLogoRef} className="relative w-24 h-24 mb-4">
+                            <div ref={screenLogoRef} className="relative w-16 h-16 md:w-24 md:h-24 mb-2 md:mb-4">
                                 <Image
                                     src="/lblg.svg"
                                     alt="Screen Logo"
                                     fill
                                     className="object-contain dark:hidden"
+                                    sizes="(max-width: 768px) 64px, 96px"
                                 />
                                 <Image
                                     src="/lblgw.svg"
                                     alt="Screen Logo"
                                     fill
                                     className="object-contain hidden dark:block"
+                                    sizes="(max-width: 768px) 64px, 96px"
                                 />
                             </div>
-                            <h3 ref={screenLabelRef} className="text-2xl font-bold text-gray-900 dark:text-white text-center">
+                            <h3 ref={screenLabelRef} className="text-lg md:text-2xl font-bold text-gray-900 dark:text-white text-center">
                                 Web<br />Development
                             </h3>
                         </div>

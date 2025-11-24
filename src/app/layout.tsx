@@ -23,6 +23,9 @@ export const metadata: Metadata = {
       { url: '/lblgw.svg', media: '(prefers-color-scheme: dark)' },
     ],
   },
+  verification: {
+    google: "lujsLtD1RFCx0KDFSvVn4v-bg0ZYU3TKhVSotRUUAVU",
+  },
 };
 
 export default function RootLayout({
