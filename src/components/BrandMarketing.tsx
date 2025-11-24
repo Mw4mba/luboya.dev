@@ -54,7 +54,7 @@ const BrandMarketing = () => {
 
                 // Phase 2: Shrink Container
                 .to(pagesWrapperRef.current, {
-                    scale: 0.7,
+                    scale: 0.9,
                     duration: 1,
                     ease: "power2.inOut"
                 })
