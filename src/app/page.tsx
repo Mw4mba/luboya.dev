@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import ApplicationDevelopment from '@/components/ApplicationDevelopment';
 import WebDevelopment from '@/components/WebDevelopment';
+import BrandMarketing from '@/components/BrandMarketing';
 
 export default function Home() {
     return (
@@ -72,6 +73,7 @@ export default function Home() {
 
             <ApplicationDevelopment />
             <WebDevelopment />
+            <BrandMarketing />
 
             <Navbar />
         </main>
